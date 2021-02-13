@@ -1,13 +1,13 @@
 const keys = () => {
-  if (p.keyIsDown(65)) { // A
+  if (p.keyIsDown(65) || p.keyIsDown(37)) { // A or left arrow
     p0.move(-PLAYER_SPEED);
   }
 
-  if (p.keyIsDown(68)) { // D
+  if (p.keyIsDown(68) || p.keyIsDown(39)) { // D or right arrow
     p0.move(PLAYER_SPEED)
   }
 
-  if (p.keyIsDown(87)) { // W
+  if (p.keyIsDown(87) || p.keyIsDown(38) || p.keyIsDown(32)) { // W or up arrow or space
     p0.jump();
   }
 };

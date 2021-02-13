@@ -26,7 +26,9 @@ let draw = () => {
   // Get user input
   keys();
   touch();
-  p1.moveAutomatic();
+  if (!aboutToReset) {
+    p1.moveAutomatic();
+  }
   //p0.moveAutomatic();
 
   p0.update();
