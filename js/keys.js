@@ -12,16 +12,20 @@ const keys = () => {
   }
 };
 
-const mouse = () => {
-  if (p.mouseIsPressed) {
-    if (p.mouseX > WIDTH / 2) {
-      p0.move(PLAYER_SPEED);
+const touch = () => {
+  for (let touch of p.touches) {
+    let x = touch.winX;
+    let y = touch.winY;
+
+    if (y > HEIGHT - GROUND_HEIGHT) {
+      p0.jump();
+      
     } else {
-      p0.move(-PLAYER_SPEED);
+      if (x > WIDTH / 2) {
+        p0.move(PLAYER_SPEED);
+      } else {
+        p0.move(-PLAYER_SPEED);
+      }
     }
-  }
-  
-  if (p.mouseY > HEIGHT - GROUND_HEIGHT) {
-    p0.jump();
   }
 };

@@ -25,7 +25,7 @@ let draw = () => {
 
   // Get user input
   keys();
-  mouse();
+  touch();
   p1.moveAutomatic();
   //p0.moveAutomatic();
 

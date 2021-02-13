@@ -1,7 +1,7 @@
 let p;
-const [vw, vh] = getViewportSize();
-const WIDTH = Math.min(800, vw);
-const HEIGHT = Math.min(500, vh);
+let [vw, vh] = getViewportSize();
+let WIDTH = Math.min(800, vw);
+let HEIGHT = Math.min(500, vh);
 const GROUND_HEIGHT = 50;
 const GOAL_HEIGHT = 200;
 
@@ -40,6 +40,13 @@ const sketch = _p => {
   };
 
   _p.draw = draw;
+
+  _p.windowResized = () => {
+    let [vw, vh] = getViewportSize();
+    WIDTH = Math.min(800, vw);
+    HEIGHT = Math.min(500, vh);
+    p.resizeCanvas(WIDTH, HEIGHT);
+  }
 };
 
 new p5(sketch, 'sketch-container');

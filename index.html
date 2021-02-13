@@ -1,7 +1,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable"
+      content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent" />
 
     <title>Soccer</title>
     <link rel="stylesheet" type="text/css" href="./main.css" media="screen" />
@@ -10,8 +14,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
 
-    <!-- Our own scripts -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.1.0/screenfull.min.js"></script>
+    
+    <!-- Our own scripts -->
     
     <script defer src="./js/utils.js"></script>
 
@@ -27,6 +33,8 @@
   </head>
 
   <body>
-    <div id="sketch-container"></div>
+    <div id="main-container">
+      <div id="sketch-container"></div>
+    </div>
   </body>
 </html>

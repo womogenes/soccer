@@ -13,3 +13,10 @@ let restart = () => {
   ball.vx = random(-1, 1);
   ball.vy = 5;
 };
+
+var el = document.getElementById('defaultCanvas0');
+el.addEventListener('touchstart', pdefault, false);
+el.addEventListener('touchend', pdefault, false);
+el.addEventListener('touchcancel', pdefault, false);
+el.addEventListener('touchleave', pdefault, false);
+el.addEventListener('touchmove', pdefault, false);
