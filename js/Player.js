@@ -51,7 +51,8 @@ class Player {
   }
 
   moveAutomatic() {
-    if (this.y - ball.y > 40) {
+    let closeness = (ball.x - this.x) * ((this.team - 0.5) * 2);
+    if (this.y - ball.y > 40 || (0 < closeness && closeness < 100)) {
       this.jump();
     }
 

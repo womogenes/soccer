@@ -1,6 +1,7 @@
 let p;
-const WIDTH = 800;
-const HEIGHT = 500;
+const [vw, vh] = getViewportSize();
+const WIDTH = Math.min(800, vw);
+const HEIGHT = Math.min(500, vh);
 const GROUND_HEIGHT = 50;
 const GOAL_HEIGHT = 200;
 
