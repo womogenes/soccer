@@ -16,7 +16,7 @@ let draw = () => {
   p.rect(0, HEIGHT - GROUND_HEIGHT, WIDTH, GROUND_HEIGHT);
 
   // Draw score
-  p.fill('#fff2');
+  p.fill('#fff9');
   p.textSize(128);
   p.textAlign('center', 'top');
   p.textFont('Open Sans');
@@ -25,6 +25,7 @@ let draw = () => {
 
   // Get user input
   keys();
+  mouse();
   p1.moveAutomatic();
   //p0.moveAutomatic();
 

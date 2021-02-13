@@ -65,10 +65,10 @@ class Player {
   }
 
   display() {
-    p.stroke(255);
+    p.stroke('#fff');
     p.strokeWeight(2);
     if (this.team) {
-      p.fill(255);
+      p.fill('#fff');
     } else {
       p.noFill();
     }

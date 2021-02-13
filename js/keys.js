@@ -11,3 +11,17 @@ const keys = () => {
     p0.jump();
   }
 };
+
+const mouse = () => {
+  if (p.mouseIsPressed) {
+    if (p.mouseX > WIDTH / 2) {
+      p0.move(PLAYER_SPEED);
+    } else {
+      p0.move(-PLAYER_SPEED);
+    }
+  }
+  
+  if (p.mouseY > HEIGHT - GROUND_HEIGHT) {
+    p0.jump();
+  }
+};
