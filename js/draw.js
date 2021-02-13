@@ -1,4 +1,6 @@
 let draw = () => {
+  age++;
+
   p.background('#222');
 
   // Goals
@@ -26,7 +28,7 @@ let draw = () => {
   // Get user input
   keys();
   touch();
-  if (!aboutToReset) {
+  if (!aboutToReset && age > p.frameRate() * 0.1) {
     p1.moveAutomatic();
   }
   //p0.moveAutomatic();

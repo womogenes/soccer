@@ -6,6 +6,7 @@ const GROUND_HEIGHT = 50;
 const GOAL_HEIGHT = 200;
 
 let aboutToReset = false;      // Used for restarting
+let age = 0;                   // Frames since reset
 
 // Physics
 const GRAVITY = 0.5;

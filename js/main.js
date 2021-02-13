@@ -1,5 +1,6 @@
 let restart = () => {
   aboutToReset = false;
+  age = 0;
 
   for (let p of [p0, p1]) {
     p.x = 50 + (WIDTH - 50 * 2) * p.team;
