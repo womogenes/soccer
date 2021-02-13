@@ -12,7 +12,7 @@ const GRAVITY = 0.5;
 // Player attributes
 const PLAYER_SIZE = 15;        // Radius
 const PLAYER_SPEED = 0.3;
-const PLAYER_JUMP = 8;
+const PLAYER_JUMP = 10;
 const PLAYER_MASS = 5;
 
 let scores = [0, 0];

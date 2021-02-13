@@ -34,8 +34,8 @@ class Ball {
     for (let e of [p0, p1]) {
       let d = dist(this.x, this.y, e.x, e.y);
       if (d < PLAYER_SIZE + BALL_SIZE) {
-        this.vx += (this.x - e.x) * PLAYER_MASS / BALL_MASS * 0.01 * Math.abs(e.vx);
-        this.vy += (this.y - e.y) * PLAYER_MASS / BALL_MASS * 0.01 * Math.abs(e.vx);
+        this.vx += (this.x - e.x) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(e.vx) + 1);
+        this.vy += (this.y - e.y) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(e.vx) + 1);
 
         if (e.y >= this.y) {
           this.vy -= 1.0 * Math.abs(e.vx);
