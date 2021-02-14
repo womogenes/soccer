@@ -8,7 +8,7 @@ The only library this project uses is [p5.js](https://p5js.org/). Served with a 
 
 ## Structure
 
-Main page is at `index.html`, all scripts are in the `js` folder. `main.css` is where all css is for now.
+Main page is at `index.html`, all scripts are in the `js` folder, and css lies in the `css` folder.
 
 ## Contributing
 
