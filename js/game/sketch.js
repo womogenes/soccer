@@ -5,15 +5,17 @@ let HEIGHT = Math.min(500, vh);
 const GROUND_HEIGHT = 50;
 const GOAL_HEIGHT = 200;
 
-let aboutToReset = false;      // Used for restarting
-let age = 0;                   // Frames since reset
+let aboutToReset = false;                                                                              // Used for restarting
+let age = 0;                                                                                           // Frames since reset
 
 // Physics
 const GRAVITY = 0.5;
 const RESTITUTION = 0.9;
+let physicsType = JSON.parse(localStorage.getItem('phsyicsType'))                                      // Weird or regular physics
+  || 'realistic';
 
 // Player attributes
-const PLAYER_SIZE = 15;        // Radius
+const PLAYER_SIZE = 15;                                                                                // Radius
 const PLAYER_SPEED = 0.3;
 const PLAYER_JUMP = 10;
 const PLAYER_MASS = 8;
@@ -21,7 +23,8 @@ const PLAYER_MASS = 8;
 let scores = [0, 0];
 
 // Settings
-let firstBot = false;          // If left player is also bot
+let firstBot = JSON.parse(localStorage.getItem('firstBot')) 
+  || false;                                                                                            // If left player is also bot
 
 // Ball o.O
 const BALL_SIZE = 15;

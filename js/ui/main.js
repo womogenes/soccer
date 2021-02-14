@@ -11,4 +11,14 @@ const closeNav = (id) => {
 
 const changeFirstBot = () => {
   firstBot = document.getElementById('first-bot-checkbox').checked;
+  localStorage.setItem('firstBot', JSON.stringify(firstBot));
+};
+
+const changePhysicsType = () => {
+  if (document.getElementById('sketchy-physics-checkbox').checked) {
+    physicsType = 'sketch';
+  } else {
+    physicsType = 'realistic';
+  }
+  localStorage.setItem('physicsType', JSON.stringify(firstBot));
 };

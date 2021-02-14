@@ -41,12 +41,33 @@ let draw = () => {
   ball.update();
 
   // Collisions
-  for (let a of entities) {
-    for (let b of entities) {
-      if (a === b) continue;
+  if (physicsType === 'realistic') {
+    for (let a of entities) {
+      for (let b of entities) {
+        if (a === b) continue;
 
-      if (a.pos.dist(b.pos) < a.radius + b.radius) {
-        collide(a, b);
+        if (a.pos.dist(b.pos) < a.radius + b.radius) {
+          collide(a, b);
+        }
+      }
+    }
+
+  } else {
+    for (let player of [p0, p1]) {
+      let d = dist(player.pos.x, player.pos.y, ball.pos.x, ball.pos.y);
+
+      if (d < PLAYER_SIZE + BALL_SIZE) {
+        
+        // Player collides with ball
+        player.vel.x += (player.pos.x - ball.pos.x) * BALL_MASS / PLAYER_MASS * 0.1;
+        player.vel.y += (player.pos.y - ball.pos.y) * BALL_MASS / PLAYER_MASS * 0.1;
+
+        ball.vel.x += (ball.pos.x - player.pos.x) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(player.vel.x) + 1);
+        ball.vel.y += (ball.pos.y - player.pos.y) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(player.vel.x) + 1);
+
+        if (player.vel.y >= ball.vel.y) {
+          ball.vel.y -= 1.0 * Math.abs(player.vel.x);
+        }
       }
     }
   }
