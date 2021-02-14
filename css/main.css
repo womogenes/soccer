@@ -4,21 +4,29 @@ body, html {
   margin: 0;
   user-select: none;
   -webkit-user-select: none;
+
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-size: 32pt;
+}
+
+h2 {
+  text-decoration: underline;
 }
 
 button {
-  font-family: --apple-system, "Open Sans", sans-serif;
+  font-family: --apple-system, 'Open Sans', sans-serif;
   font-weight: normal;
   border: 1px solid #000;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #333;
-  }
+label {
+  margin-bottom: 10px;;
 }
 
-#main-container {
+#root {
   display: flex;
   flex-direction: column;
   justify-content: center;

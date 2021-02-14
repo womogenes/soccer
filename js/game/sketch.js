@@ -20,6 +20,9 @@ const PLAYER_MASS = 8;
 
 let scores = [0, 0];
 
+// Settings
+let firstBot = false;          // If left player is also bot
+
 // Ball o.O
 const BALL_SIZE = 15;
 const BALL_MASS = 1;

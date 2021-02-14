@@ -8,11 +8,13 @@
       content="black-translucent" />
 
     <title>Soccer</title>
-    <link rel="stylesheet" type="text/css" href="./main.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/dark.css" media="screen" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/fonts.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" media="screen" />
+
+    <link rel="stylesheet" type="text/css" href="./css/navbar.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/navbar-extra.css" media="screen" />
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.1.0/screenfull.min.js"></script>
@@ -31,8 +33,44 @@
   </head>
 
   <body>
-    <div id="main-container">
-      <div id="sketch-container"></div>
+    <div id="root">
+      <button id="open-settings" class="navbar-open" onclick="openNav('settings-nav')">Settings</button>
+      <div id="settings-nav" class="navbar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings-nav')">&times;</a>
+
+        <div class="navbar-content">
+          <h1>Settings</h1>
+
+          <div>
+            <input type="checkbox" id="first-bot-checkbox" onclick="changeFirstBot()">
+            <label for="first-bot-checkbox">First player also bot</label>
+          </div>
+        </div>
+      </div>
+
+      <button id="open-about" class="navbar-open" onclick="openNav('about-nav')">About</button>
+      <div id="about-nav" class="navbar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('about-nav')">&times;</a>
+        <div class="navbar-content">
+          <h1>About</h1>
+
+          <h2>Instructions</h2>
+          <p>
+            Use WASD or arrow keys to move, or space to jump.
+            You can access settings in the left menu.
+          </p>
+
+          <h2>Background</h2>
+          <p>
+            This was really meant to be a quick project to reboot 
+            <a href="https://scratch.mit.edu/projects/220321124/" target="_blank">this</a> Scratch project in js.
+          </p>
+        </div>
+      </div>
+
+      <div id="content-container">
+        <div id="sketch-container"></div>
+      </div>
     </div>
   </body>
 </html>

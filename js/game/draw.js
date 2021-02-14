@@ -20,6 +20,7 @@ let draw = () => {
   // Draw score
   p.fill('#fff9');
   p.textSize(128);
+  p.textStyle('bold');
   p.textAlign('center', 'top');
   p.textFont('Open Sans');
   p.text(scores[0], 200, 100);
@@ -28,10 +29,12 @@ let draw = () => {
   // Get user input
   keys();
   touch();
-  if (!aboutToReset && age > p.frameRate() * 0.1) {
+  if (!aboutToReset && age > p.frameRate() * 0.25) {
     p1.moveAutomatic();
   }
-  //p0.moveAutomatic();
+  if (firstBot && !aboutToReset && age > p.frameRate() * 0.25) {
+    p0.moveAutomatic();
+  }
 
   p0.update();
   p1.update();

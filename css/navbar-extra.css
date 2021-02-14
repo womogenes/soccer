@@ -1,0 +1,22 @@
+.navbar-open {
+  position: absolute;
+  
+  border: none;
+  background: transparent;
+  font-size: 16pt;
+
+  top: 10px;
+}
+
+  .navbar-open:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #open-settings {
+    left: 10px;
+  }
+
+  #open-about {
+    right: 10px;
+  }
