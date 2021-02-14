@@ -2,62 +2,60 @@ class Player {
   constructor(team) {
     this.team = team;
     
-    this.x = 50 + (WIDTH - 50 * 2) * team;
-    this.y = HEIGHT - GROUND_HEIGHT - PLAYER_SIZE;
-    this.vx = 0;
-    this.vy = 0;
+    this.pos = p.createVector(50 + (WIDTH - 50 * 2) * team, HEIGHT - GROUND_HEIGHT - PLAYER_SIZE);
+    this.vel = p.createVector(0, 0);
 
     this.radius = PLAYER_SIZE;
+    this.mass = PLAYER_MASS;
   }
 
   update() {
-    this.x += this.vx;
-    this.y += this.vy;
+    this.pos.add(this.vel);
 
-    this.vx *= 0.95;
+    this.vel.x *= 0.95;
 
-    if (this.y > HEIGHT - GROUND_HEIGHT - PLAYER_SIZE) {
-      this.vy *= -0.4;
-      this.y = HEIGHT - GROUND_HEIGHT - PLAYER_SIZE;
+    if (this.pos.y > HEIGHT - GROUND_HEIGHT - PLAYER_SIZE) {
+      this.vel.y *= -0.4;
+      this.pos.y = HEIGHT - GROUND_HEIGHT - PLAYER_SIZE;
     } else {
-      this.vy += GRAVITY;
+      this.vel.y += GRAVITY;
     }
 
-    if (this.x < PLAYER_SIZE || this.x > WIDTH - PLAYER_SIZE) {
-      this.vx *= -1;
-      if (this.x < PLAYER_SIZE) {
-        this.x = PLAYER_SIZE;
+    if (this.pos.x < PLAYER_SIZE || this.pos.x > WIDTH - PLAYER_SIZE) {
+      this.vel.x *= -1;
+      if (this.pos.x < PLAYER_SIZE) {
+        this.pos.x = PLAYER_SIZE;
       } else {
-        this.x = WIDTH - PLAYER_SIZE;
+        this.pos.x = WIDTH - PLAYER_SIZE;
       }
     }
 
     // COLLISIONS
-    let d = dist(this.x, this.y, ball.x, ball.y);
+    let d = dist(this.pos.x, this.pos.y, ball.pos.x, ball.pos.y);
     if (d < PLAYER_SIZE + BALL_SIZE) {
-      this.vx += (this.x - ball.x) * BALL_MASS / PLAYER_MASS * 0.1;
-      this.vy += (this.y - ball.y) * BALL_MASS / PLAYER_MASS * 0.1;
+      this.vel.x += (this.pos.x - ball.pos.x) * BALL_MASS / PLAYER_MASS * 0.1;
+      this.vel.y += (this.pos.y - ball.pos.y) * BALL_MASS / PLAYER_MASS * 0.1;
     }
   }
 
   move(acc) {
-    this.vx += acc;
+    this.vel.x += acc;
   }
 
   jump() {
-    if (this.y >= HEIGHT - GROUND_HEIGHT - PLAYER_SIZE) {
-      this.vy = -PLAYER_JUMP;
+    if (this.pos.y >= HEIGHT - GROUND_HEIGHT - PLAYER_SIZE) {
+      this.vel.y = -PLAYER_JUMP;
     }
   }
 
   moveAutomatic() {
-    let closeness = (ball.x - this.x) * ((this.team - 0.5) * 2);
-    if (age > 60 && this.y - ball.y > 40 || (0 < closeness && closeness < 100)) {
+    let closeness = (ball.pos.x - this.pos.x) * ((this.team - 0.5) * 2);
+    if (age > 60 && this.pos.y - ball.pos.y > 40 || (0 < closeness && closeness < 100)) {
       this.jump();
     }
 
-    let boundary = ball.x + ((this.team - 0.5) * 2) * (PLAYER_SIZE + BALL_SIZE) * 0.9;
-    if (this.x > boundary) {
+    let boundary = ball.pos.x + ((this.team - 0.5) * 2) * (PLAYER_SIZE + BALL_SIZE) * 0.9;
+    if (this.pos.x > boundary) {
       this.move(-PLAYER_SPEED);
     } else {
       this.move(PLAYER_SPEED);
@@ -73,6 +71,6 @@ class Player {
       p.noFill();
     }
     p.ellipseMode('center');
-    p.ellipse(this.x, this.y, PLAYER_SIZE * 2);
+    p.ellipse(this.pos.x, this.pos.y, PLAYER_SIZE * 2);
   }
 }

@@ -38,13 +38,13 @@ let draw = () => {
   ball.update();
 
   // Scoring
-  if (!aboutToReset && ball.y > HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT) {
-    if (ball.x < 20) {
+  if (!aboutToReset && ball.pos.y > HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT) {
+    if (ball.pos.x < 20) {
       scores[1]++;
       window.setTimeout(restart, 500);
       aboutToReset = true;
 
-    } else if (ball.x > WIDTH - 20) {
+    } else if (ball.pos.x > WIDTH - 20) {
       scores[0]++;
       window.setTimeout(restart, 500);
       aboutToReset = true;
