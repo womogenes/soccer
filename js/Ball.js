@@ -29,8 +29,8 @@ class Ball {
     }
 
     for (let player of [p0, p1]) {
-      if (this.pos.dist(player.pos) < this.radius + player.radius) {
-        this.vel.y -= 10;
+      if (this.pos.dist(player.pos) < this.radius + player.radius && Math.abs(player.vel.x) > 1) {
+        this.vel.y -= 5;
       }
     }
   }
