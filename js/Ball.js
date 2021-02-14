@@ -27,19 +27,6 @@ class Ball {
         this.pos.x = WIDTH - BALL_SIZE;
       }
     }
-
-    // COLLISIONS
-    for (let e of [p0, p1]) {
-      let d = dist(this.pos.x, this.pos.y, e.pos.x, e.pos.y);
-      if (d < PLAYER_SIZE + BALL_SIZE) {
-        this.vel.x += (this.pos.x - e.pos.x) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(e.vel.x) + 1);
-        this.vel.y += (this.pos.y - e.pos.y) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(e.vel.x) + 1);
-
-        if (e.pos.y >= this.pos.y) {
-          this.vel.y -= 1.0 * Math.abs(e.vel.x);
-        }
-      }
-    }
   }
 
   display() {

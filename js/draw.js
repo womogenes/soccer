@@ -37,6 +37,15 @@ let draw = () => {
   p1.update();
   ball.update();
 
+  // Collisions
+  for (let a of entities) {
+    for (let b of entities) {
+      if (a === b) return;
+
+      //collide(a, b);
+    }
+  }
+
   // Scoring
   if (!aboutToReset && ball.pos.y > HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT) {
     if (ball.pos.x < 20) {

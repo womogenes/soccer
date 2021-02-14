@@ -10,6 +10,7 @@ let age = 0;                   // Frames since reset
 
 // Physics
 const GRAVITY = 0.5;
+const RESTITUTION = 0.9;
 
 // Player attributes
 const PLAYER_SIZE = 15;        // Radius

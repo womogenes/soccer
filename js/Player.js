@@ -29,13 +29,6 @@ class Player {
         this.pos.x = WIDTH - PLAYER_SIZE;
       }
     }
-
-    // COLLISIONS
-    let d = dist(this.pos.x, this.pos.y, ball.pos.x, ball.pos.y);
-    if (d < PLAYER_SIZE + BALL_SIZE) {
-      this.vel.x += (this.pos.x - ball.pos.x) * BALL_MASS / PLAYER_MASS * 0.1;
-      this.vel.y += (this.pos.y - ball.pos.y) * BALL_MASS / PLAYER_MASS * 0.1;
-    }
   }
 
   move(acc) {
