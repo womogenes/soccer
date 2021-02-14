@@ -11,6 +11,7 @@ const closeNav = (id) => {
 
 const changeFirstBot = () => {
   firstBot = document.getElementById('first-bot-checkbox').checked;
+  console.log(JSON.stringify(firstBot), typeof(JSON.stringify(firstBot)));
   localStorage.setItem('firstBot', JSON.stringify(firstBot));
 };
 
@@ -20,5 +21,17 @@ const changePhysicsType = () => {
   } else {
     physicsType = 'realistic';
   }
-  localStorage.setItem('physicsType', JSON.stringify(firstBot));
+  localStorage.setItem('physicsType', JSON.stringify(physicsType));
+};
+
+const changeGravity = () => {
+  GRAVITY = parseFloat(document.getElementById('gravity-slider').value);
+  document.querySelector('[for="gravity-slider"]').innerText = `Gravity: ${GRAVITY}`;
+  localStorage.setItem('gravity', JSON.stringify(GRAVITY));
+};
+
+const changeRestitution = () => {
+  RESTITUTION = parseFloat(document.getElementById('restitution-slider').value);
+  document.querySelector('[for="restitution-slider"]').innerText = `Restitution: ${RESTITUTION}`;
+  localStorage.setItem('restitution', JSON.stringify(RESTITUTION));
 };

@@ -44,7 +44,7 @@ let draw = () => {
   if (physicsType === 'realistic') {
     for (let a of entities) {
       for (let b of entities) {
-        if (a === b) continue;
+        if (a === b || (a instanceof Player && b instanceof Player)) continue;
 
         if (a.pos.dist(b.pos) < a.radius + b.radius) {
           collide(a, b);
