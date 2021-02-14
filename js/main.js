@@ -27,19 +27,22 @@ let collide = (a, b) => {
   let im2 = 1 / b.mass;
 
   // push-pull them apart based off their mass
-  a.pos.add(p5.mult(mtd, im1 / (im1 + im2)));
-  b.pos.sub(p5.mult(mtd, im2 / (im1 + im2)));
+  a.pos.add(p5.Vector.mult(mtd, im1 / (im1 + im2)));
+  b.pos.sub(p5.Vector.mult(mtd, im2 / (im1 + im2)));
+
+  // FROM HERE ON, WE USE mtd NORMALIZED
+  mtd.normalize();
 
   // impact speed
   let v = p5.Vector.sub(a.vel, b.vel);
-  let vn = v.dot(p5.Vector.normalize(mtd));
+  let vn = v.dot(mtd);
 
   // sphere intersecting but moving away from each other already
   if (vn > 0) return;
 
   // collision impulse
   let i = (-(1 + RESTITUTION) * vn) / (im1 + im2);
-  let impulse = p5.Vector.mult(p5.Vector.normalize(mtd), i);
+  let impulse = p5.Vector.mult(mtd, i);
 
   // change in momentum
   a.vel.add(p5.Vector.mult(impulse, im1));

@@ -40,9 +40,11 @@ let draw = () => {
   // Collisions
   for (let a of entities) {
     for (let b of entities) {
-      if (a === b) return;
+      if (a === b) continue;
 
-      //collide(a, b);
+      if (a.pos.dist(b.pos) < a.radius + b.radius) {
+        collide(a, b);
+      }
     }
   }
 

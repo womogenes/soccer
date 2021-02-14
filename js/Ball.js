@@ -27,6 +27,12 @@ class Ball {
         this.pos.x = WIDTH - BALL_SIZE;
       }
     }
+
+    for (let player of [p0, p1]) {
+      if (this.pos.dist(player.pos) < this.radius + player.radius) {
+        this.vel.y -= 10;
+      }
+    }
   }
 
   display() {

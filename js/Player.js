@@ -7,6 +7,7 @@ class Player {
 
     this.radius = PLAYER_SIZE;
     this.mass = PLAYER_MASS;
+    this.speed = PLAYER_SPEED;
   }
 
   update() {
@@ -49,9 +50,9 @@ class Player {
 
     let boundary = ball.pos.x + ((this.team - 0.5) * 2) * (PLAYER_SIZE + BALL_SIZE) * 0.9;
     if (this.pos.x > boundary) {
-      this.move(-PLAYER_SPEED);
+      this.move(-this.speed);
     } else {
-      this.move(PLAYER_SPEED);
+      this.move(this.speed);
     }
   }
 
