@@ -7,7 +7,7 @@ input[type=range]:focus {
   outline: none;
 }
 input[type=range]::-webkit-slider-runnable-track {
-  background: rgba(64, 64, 64, 0.2);
+  background: var(--range-track-color);
   border: 0;
   border-radius: 25px;
   width: 100%;
@@ -18,7 +18,7 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: -3.9px;
   width: 15px;
   height: 15px;
-  background: #000000;
+  background: var(--range-thumb-color);
   border: 0;
   border-radius: 9999px;
   cursor: pointer;
@@ -28,7 +28,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   background: #a0a0a0;
 }
 input[type=range]::-moz-range-track {
-  background: rgba(64, 64, 64, 0.2);
+  background: var(--range-track-color);
   border: 0;
   border-radius: 25px;
   width: 100%;
@@ -38,7 +38,7 @@ input[type=range]::-moz-range-track {
 input[type=range]::-moz-range-thumb {
   width: 15px;
   height: 15px;
-  background: #000000;
+  background: var(--range-thumb-color);
   border: 0;
   border-radius: 9999px;
   cursor: pointer;
@@ -58,14 +58,14 @@ input[type=range]::-ms-fill-lower {
   border-radius: 50px;
 }
 input[type=range]::-ms-fill-upper {
-  background: rgba(64, 64, 64, 0.2);
+  background: var(--range-track-color);
   border: 0;
   border-radius: 50px;
 }
 input[type=range]::-ms-thumb {
   width: 15px;
   height: 15px;
-  background: #000000;
+  background: var(--range-thumb-color);
   border: 0;
   border-radius: 9999px;
   cursor: pointer;
@@ -73,7 +73,7 @@ input[type=range]::-ms-thumb {
   /*Needed to keep the Edge thumb centred*/
 }
 input[type=range]:focus::-ms-fill-lower {
-  background: rgba(64, 64, 64, 0.2);
+  background: #a0a0a0;
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #a0a0a0;

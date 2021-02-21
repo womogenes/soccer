@@ -29,18 +29,18 @@ if (JSON.parse(localStorage.getItem('physicsType')) === 'sketch') {
 let storedGravity = JSON.parse(localStorage.getItem('gravity'));
 if (storedGravity) {
   GRAVITY = storedGravity;
-  document.getElementById('gravity-slider').value = storedGravity;
 } else {
-  GRAIVTY = 0.5;
+  GRAVITY = 0.5;
 }
+document.getElementById('gravity-slider').value = GRAVITY;
 document.querySelector('[for="gravity-slider"]').innerText = `Gravity: ${GRAVITY}`;
 
 // Restitution
 let storedRestitution = JSON.parse(localStorage.getItem('restitution'));
 if (storedRestitution) {
   RESTITUTION = storedRestitution;
-  document.getElementById('restitution-slider').value = storedRestitution;
 } else {
   RESTITUTION = 0.9;
 }
+document.getElementById('restitution-slider').value = RESTITUTION;
 document.querySelector('[for="restitution-slider"]').innerText = `Restitution: ${RESTITUTION}`;

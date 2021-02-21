@@ -1,3 +1,8 @@
+:root {
+  --range-track-color: rgba(64, 64, 64, 0.2);
+  --range-thumb-color: #000;
+}
+
 body, html {
   width: 100%;
   height: 100%;
