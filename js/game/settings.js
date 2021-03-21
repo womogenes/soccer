@@ -1,5 +1,6 @@
 let firstBot;
 let physicsType;
+let secondBot;
 
 // Physics
 let GRAVITY;
@@ -10,11 +11,21 @@ let BALL_SIZE = 15;
 let BALL_MASS = 1;
 
 // First player also bot?
-if (JSON.parse(localStorage.getItem('firstBot'))) {
+let storedFirstBot = JSON.parse(localStorage.getItem('firstBot'));
+if (storedFirstBot) {
   firstBot = true;
   document.getElementById('first-bot-checkbox').checked = true;
 } else {
   firstBot = false;
+}
+
+// Second player also bot?
+let storedSecondBot = JSON.parse(localStorage.getItem('secondBot'));
+if (storedSecondBot !== null && !storedSecondBot) {
+  secondBot = false;
+} else {
+  secondBot = true;
+  document.getElementById('second-bot-checkbox').checked = true;
 }
 
 // Sketchy physics

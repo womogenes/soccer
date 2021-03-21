@@ -29,7 +29,7 @@ let draw = () => {
   // Get user input
   keys();
   touch();
-  if (!aboutToReset && age > p.frameRate() * 0.25) {
+  if (secondBot && !aboutToReset && age > p.frameRate() * 0.25) {
     p1.moveAutomatic();
   }
   if (firstBot && !aboutToReset && age > p.frameRate() * 0.25) {

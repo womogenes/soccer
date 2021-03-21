@@ -1,15 +1,44 @@
 const keys = () => {
-  if (p.keyIsDown(65) || p.keyIsDown(37)) { // A or left arrow
+  if (p.keyIsDown(65)) { // A
     p0.move(-p0.speed);
   }
 
-  if (p.keyIsDown(68) || p.keyIsDown(39)) { // D or right arrow
+  if (p.keyIsDown(68)) { // D
     p0.move(p0.speed);
   }
 
-  if (p.keyIsDown(87) || p.keyIsDown(38) || p.keyIsDown(32)) { // W or up arrow or space
+  if (p.keyIsDown(87)) { // W or up arrow
     p0.jump();
   }
+
+  if (p.keyIsDown(37)) { // Left arrow
+    if (!secondBot) {
+      p1.move(-p1.speed);
+    } else {
+      p0.move(-p0.speed);
+    }
+  }
+
+  if (p.keyIsDown(39)) { // Right arrow
+    if (!secondBot) {
+      p1.move(p1.speed);
+    } else {
+      p0.move(p0.speed);
+    }
+  }
+
+  if (p.keyIsDown(38)) { // Up arrow
+    if (!secondBot) {
+      p1.jump();
+    } else {
+      p0.jump();
+    }
+  }
+
+  if (p.keyIsDown(32) && !secondBot) {
+    p0.jump();
+  }
+
 };
 
 const touch = () => {

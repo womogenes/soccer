@@ -11,8 +11,12 @@ const closeNav = (id) => {
 
 const changeFirstBot = () => {
   firstBot = document.getElementById('first-bot-checkbox').checked;
-  console.log(JSON.stringify(firstBot), typeof(JSON.stringify(firstBot)));
   localStorage.setItem('firstBot', JSON.stringify(firstBot));
+};
+
+const changeSecondBot = () => {
+  secondBot = document.getElementById('second-bot-checkbox').checked;
+  localStorage.setItem('secondBot', JSON.stringify(secondBot));
 };
 
 const changePhysicsType = () => {
