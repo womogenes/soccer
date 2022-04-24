@@ -5,11 +5,11 @@ let HEIGHT = Math.min(500, vh);
 const GROUND_HEIGHT = 50;
 const GOAL_HEIGHT = 200;
 
-let aboutToReset = false;                                                                              // Used for restarting
-let age = 0;                                                                                           // Frames since reset
+let aboutToReset = false; // Used for restarting
+let age = 0; // Frames since reset
 
 // Player attributes
-const PLAYER_SIZE = 15;                                                                                // Radius
+const PLAYER_SIZE = 15; // Radius
 const PLAYER_SPEED = 0.3;
 const PLAYER_JUMP = 10;
 const PLAYER_MASS = 8;
@@ -21,7 +21,7 @@ let p1;
 let ball;
 let entities;
 
-const sketch = _p => {
+const sketch = (_p) => {
   p = _p;
 
   _p.setup = () => {
@@ -31,6 +31,7 @@ const sketch = _p => {
     entities = [p0, p1, ball];
 
     p.createCanvas(WIDTH, HEIGHT);
+    p.pixelDensity(4);
   };
 
   _p.draw = draw;
@@ -40,7 +41,7 @@ const sketch = _p => {
     WIDTH = Math.min(800, vw);
     HEIGHT = Math.min(500, vh);
     p.resizeCanvas(WIDTH, HEIGHT);
-  }
+  };
 };
 
 new p5(sketch, 'sketch-container');

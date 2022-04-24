@@ -7,22 +7,27 @@ let draw = () => {
   p.strokeWeight(2);
   p.stroke('#eee');
   p.noFill();
-  p.rect(0, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, 20, GOAL_HEIGHT + 10);
+  p.rect(2, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, 20, GOAL_HEIGHT + 10);
 
   p.fill('#eee');
-  p.rect(WIDTH - 20, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, 20, GOAL_HEIGHT + 10);
-  
+  p.rect(
+    WIDTH - 22,
+    HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT,
+    20,
+    GOAL_HEIGHT + 10
+  );
+
   // Ground
   p.noStroke();
   p.fill('#444');
   p.rect(0, HEIGHT - GROUND_HEIGHT, WIDTH, GROUND_HEIGHT);
 
   // Draw score
-  p.fill('#fff9');
+  p.fill('#fff6');
   p.textSize(128);
   p.textStyle('bold');
   p.textAlign('center', 'top');
-  p.textFont('Open Sans');
+  p.textFont('Inter');
   p.text(scores[0], 200, 100);
   p.text(scores[1], WIDTH - 200, 100);
 
@@ -51,19 +56,25 @@ let draw = () => {
         }
       }
     }
-
   } else {
     for (let player of [p0, p1]) {
       let d = dist(player.pos.x, player.pos.y, ball.pos.x, ball.pos.y);
 
       if (d < PLAYER_SIZE + BALL_SIZE) {
-        
         // Player collides with ball
-        player.vel.x += (player.pos.x - ball.pos.x) * BALL_MASS / PLAYER_MASS * 0.1;
-        player.vel.y += (player.pos.y - ball.pos.y) * BALL_MASS / PLAYER_MASS * 0.1;
+        player.vel.x +=
+          (((player.pos.x - ball.pos.x) * BALL_MASS) / PLAYER_MASS) * 0.1;
+        player.vel.y +=
+          (((player.pos.y - ball.pos.y) * BALL_MASS) / PLAYER_MASS) * 0.1;
 
-        ball.vel.x += (ball.pos.x - player.pos.x) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(player.vel.x) + 1);
-        ball.vel.y += (ball.pos.y - player.pos.y) * PLAYER_MASS / BALL_MASS * 0.01 * (Math.abs(player.vel.x) + 1);
+        ball.vel.x +=
+          (((ball.pos.x - player.pos.x) * PLAYER_MASS) / BALL_MASS) *
+          0.01 *
+          (Math.abs(player.vel.x) + 1);
+        ball.vel.y +=
+          (((ball.pos.y - player.pos.y) * PLAYER_MASS) / BALL_MASS) *
+          0.01 *
+          (Math.abs(player.vel.x) + 1);
 
         if (player.vel.y >= ball.vel.y) {
           ball.vel.y -= 1.0 * Math.abs(player.vel.x);
@@ -78,7 +89,6 @@ let draw = () => {
       scores[1]++;
       window.setTimeout(restart, 500);
       aboutToReset = true;
-
     } else if (ball.pos.x > WIDTH - 20) {
       scores[0]++;
       window.setTimeout(restart, 500);
