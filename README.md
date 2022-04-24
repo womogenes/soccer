@@ -15,3 +15,14 @@ Contributions are welcome! Feel free to make a pull request or an issue. I might
 ## License
 
 Figured I might as well add a license even if it's too early. This project is licensed under the MIT license.
+
+## Future plans (for reference)
+
+- Multiplayer support (big project, requires server)
+- Better local storage saving
+- Better AI
+- Custom movement keys (for users with different keyboard layouts)
+
+## ~~Bugs~~ Features
+
+- AI can still be controlled with arrow keys
