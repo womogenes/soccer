@@ -26,3 +26,4 @@ Figured I might as well add a license even if it's too early. This project is li
 ## ~~Bugs~~ Features
 
 - AI can still be controlled with arrow keys
+- Add a favicon and OpenGraph meta tags

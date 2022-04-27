@@ -7,11 +7,11 @@ let draw = () => {
   p.strokeWeight(2);
   p.stroke('#eee');
   p.noFill();
-  p.rect(2, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, 20, GOAL_HEIGHT + 10);
+  p.rect(1, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, 20, GOAL_HEIGHT + 10);
 
   p.fill('#eee');
   p.rect(
-    WIDTH - 22,
+    WIDTH - 21,
     HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT,
     20,
     GOAL_HEIGHT + 10
