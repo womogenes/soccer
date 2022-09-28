@@ -85,11 +85,11 @@ let draw = () => {
 
   // Scoring
   if (!aboutToReset && ball.pos.y > HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT) {
-    if (ball.pos.x < 20) {
+    if (ball.pos.x < 2 * BALL_SIZE) {
       scores[1]++;
       window.setTimeout(restart, 500);
       aboutToReset = true;
-    } else if (ball.pos.x > WIDTH - 20) {
+    } else if (ball.pos.x > WIDTH - 2 * BALL_SIZE) {
       scores[0]++;
       window.setTimeout(restart, 500);
       aboutToReset = true;

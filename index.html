@@ -1,26 +1,66 @@
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable"
-      content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
 
     <title>Soccer</title>
-    <link rel="stylesheet" type="text/css" href="./css/range.css" media="screen" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/range.css"
+      media="screen"
+    />
 
-    <link rel="stylesheet" type="text/css" href="./css/fonts.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./css/main.css" media="screen" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/fonts.css"
+      media="screen"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/main.css"
+      media="screen"
+    />
 
-    <link rel="stylesheet" type="text/css" href="./css/navbar.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./css/navbar-extra.css" media="screen" />
-    
-    <link rel="stylesheet" type="text/css" href="./css/dark.css" media="screen" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/navbar.css"
+      media="screen"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/navbar-extra.css"
+      media="screen"
+    />
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.1.0/screenfull.min.js"></script>
-    
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/dark.css"
+      media="screen"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.1.0/screenfull.min.js"
+    ></script>
+
     <!-- Our own scripts -->
     <script defer src="./js/game/settings.js"></script>
 
@@ -33,57 +73,138 @@
     <script defer src="./js/game/sketch.js"></script>
 
     <script defer src="./js/ui/main.js"></script>
-
   </head>
 
   <body>
     <div id="root">
-      <button id="open-settings" class="navbar-open" onclick="openNav('settings-nav')">Settings</button>
+      <button
+        id="open-settings"
+        class="navbar-open"
+        onclick="openNav('settings-nav')"
+      >
+        Settings
+      </button>
       <div id="settings-nav" class="navbar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings-nav')">&times;</a>
+        <a
+          href="javascript:void(0)"
+          class="closebtn"
+          onclick="closeNav('settings-nav')"
+          >&times;</a
+        >
 
         <div class="navbar-content">
           <h1>Settings</h1>
 
           <div class="setting">
-            <input type="checkbox" id="first-bot-checkbox" onclick="changeFirstBot()">
+            <input
+              type="checkbox"
+              id="first-bot-checkbox"
+              onclick="changeFirstBot()"
+            />
             <label for="first-bot-checkbox">First player also bot</label>
           </div>
           <div class="setting">
-            <input type="checkbox" id="second-bot-checkbox" onclick="changeSecondBot()">
+            <input
+              type="checkbox"
+              id="second-bot-checkbox"
+              onclick="changeSecondBot()"
+            />
             <label for="second-bot-checkbox">Second player bot</label>
           </div>
           <div class="setting">
-            <input type="checkbox" id="sketchy-physics-checkbox" onclick="changePhysicsType()">
+            <input
+              type="checkbox"
+              id="sketchy-physics-checkbox"
+              onclick="changePhysicsType()"
+            />
             <label for="sketchy-physics-checkbox">Sketchy physics</label>
           </div>
           <div class="setting">
-            <label for="gravity-slider">Gravity</label><br>
+            <label for="gravity-slider">Gravity</label><br />
             <div class="slider">
-              <span>0</span><input type="range" id="gravity-slider" min="0" max="1" step="0.01" value="0.5" oninput="changeGravity()"><span>1</span>
+              <span>0</span
+              ><input
+                type="range"
+                id="gravity-slider"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.5"
+                oninput="changeGravity()"
+              /><span>1</span>
             </div>
           </div>
           <div class="setting">
-            <label for="restitution-slider">Restitution</label><br>
+            <label for="ball-size-slider">Ball size</label><br />
             <div class="slider">
-              <span>0</span><input type="range" id="restitution-slider" min="0" max="1" step="0.01" value="0.9" oninput="changeRestitution()"><span>1</span>
+              <span>0</span
+              ><input
+                type="range"
+                id="ball-size-slider"
+                min="5"
+                max="200"
+                step="0.01"
+                value="15"
+                oninput="changeBallSize()"
+              /><span>10</span>
+            </div>
+          </div>
+          <div class="setting">
+            <label for="restitution-slider">Restitution</label><br />
+            <div class="slider">
+              <span>0</span
+              ><input
+                type="range"
+                id="restitution-slider"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.9"
+                oninput="changeRestitution()"
+              /><span>1</span>
             </div>
           </div>
         </div>
       </div>
 
-      <button id="open-about" class="navbar-open" onclick="openNav('about-nav')">About</button>
+      <button
+        id="open-about"
+        class="navbar-open"
+        onclick="openNav('about-nav')"
+      >
+        About
+      </button>
       <div id="about-nav" class="navbar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('about-nav')">&times;</a>
+        <a
+          href="javascript:void(0)"
+          class="closebtn"
+          onclick="closeNav('about-nav')"
+          >&times;</a
+        >
         <div class="navbar-content">
           <h1>About</h1>
 
           <h2>Instructions</h2>
-          <p>Use WASD or arrow keys to move, or space to jump. You can access settings in the left menu.</p>
+          <p>
+            Use WASD or arrow keys to move, or space to jump. You can access
+            settings in the left menu.
+          </p>
 
           <h2>Background</h2>
-          <p>This was really meant to be a quick project to reboot <a href="https://scratch.mit.edu/projects/220321124/" target="_blank">this</a> Scratch project in js.</p>
-          <p>For more info, checkout the <a href="https://github.com/womogenes/soccer">Github repository</a>. Pull requests, issues, and the like would be highly appreciated!</p>
+          <p>
+            This was really meant to be a quick project to reboot
+            <a
+              href="https://scratch.mit.edu/projects/220321124/"
+              target="_blank"
+              >this</a
+            >
+            Scratch project in js.
+          </p>
+          <p>
+            For more info, checkout the
+            <a href="https://github.com/womogenes/soccer">Github repository</a>.
+            Pull requests, issues, and the like would be highly appreciated!
+          </p>
         </div>
       </div>
 

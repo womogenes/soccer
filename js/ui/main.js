@@ -30,12 +30,24 @@ const changePhysicsType = () => {
 
 const changeGravity = () => {
   GRAVITY = parseFloat(document.getElementById('gravity-slider').value);
-  document.querySelector('[for="gravity-slider"]').innerText = `Gravity: ${GRAVITY}`;
+  document.querySelector(
+    '[for="gravity-slider"]'
+  ).innerText = `Gravity: ${GRAVITY}`;
   localStorage.setItem('gravity', JSON.stringify(GRAVITY));
 };
 
 const changeRestitution = () => {
   RESTITUTION = parseFloat(document.getElementById('restitution-slider').value);
-  document.querySelector('[for="restitution-slider"]').innerText = `Restitution: ${RESTITUTION}`;
+  document.querySelector(
+    '[for="restitution-slider"]'
+  ).innerText = `Restitution: ${RESTITUTION}`;
   localStorage.setItem('restitution', JSON.stringify(RESTITUTION));
+};
+
+const changeBallSize = () => {
+  BALL_SIZE = parseFloat(document.getElementById('ball-size-slider').value);
+  document.querySelector(
+    '[for="ball-size-slider"]'
+  ).innerText = `Ball size: ${BALL_SIZE}`;
+  localStorage.setItem('ballSize', JSON.stringify(BALL_SIZE));
 };

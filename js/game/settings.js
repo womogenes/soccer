@@ -7,7 +7,7 @@ let GRAVITY;
 let RESTITUTION;
 
 // Ball o.O
-let BALL_SIZE = 15;
+let BALL_SIZE = 30;
 let BALL_MASS = 1;
 
 // First player also bot?
@@ -44,7 +44,9 @@ if (storedGravity) {
   GRAVITY = 0.5;
 }
 document.getElementById('gravity-slider').value = GRAVITY;
-document.querySelector('[for="gravity-slider"]').innerText = `Gravity: ${GRAVITY}`;
+document.querySelector(
+  '[for="gravity-slider"]'
+).innerText = `Gravity: ${GRAVITY}`;
 
 // Restitution
 let storedRestitution = JSON.parse(localStorage.getItem('restitution'));
@@ -54,4 +56,18 @@ if (storedRestitution) {
   RESTITUTION = 0.9;
 }
 document.getElementById('restitution-slider').value = RESTITUTION;
-document.querySelector('[for="restitution-slider"]').innerText = `Restitution: ${RESTITUTION}`;
+document.querySelector(
+  '[for="restitution-slider"]'
+).innerText = `Restitution: ${RESTITUTION}`;
+
+// Ball size
+let storedBallSize = JSON.parse(localStorage.getItem('ball-size'));
+if (storedBallSize) {
+  BALL_SIZE = storedBallSize;
+} else {
+  BALL_SIZE = 0.9;
+}
+document.getElementById('ball-size-slider').value = BALL_SIZE;
+document.querySelector(
+  '[for="ball-size-slider"]'
+).innerText = `Ball size: ${BALL_SIZE}`;
