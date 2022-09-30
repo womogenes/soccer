@@ -1,6 +1,6 @@
 class Ball {
   constructor() {
-    this.pos = p.createVector(WIDTH / 2, HEIGHT/ 2);
+    this.pos = p.createVector(WIDTH / 2, HEIGHT / 2);
     this.vel = p.createVector(random(-1, 1), -5);
 
     this.radius = BALL_SIZE;
@@ -9,6 +9,7 @@ class Ball {
 
   update() {
     this.pos.add(this.vel);
+    this.radius = BALL_SIZE;
 
     this.vel.x *= 0.99;
 
@@ -18,7 +19,7 @@ class Ball {
     } else {
       this.vel.y += GRAVITY;
     }
-    
+
     if (this.pos.x < BALL_SIZE || this.pos.x > WIDTH - BALL_SIZE) {
       this.vel.x *= -1;
       if (this.pos.x < BALL_SIZE) {
@@ -29,7 +30,10 @@ class Ball {
     }
 
     for (let player of [p0, p1]) {
-      if (this.pos.dist(player.pos) < this.radius + player.radius && Math.abs(player.vel.x) > 1) {
+      if (
+        this.pos.dist(player.pos) < this.radius + player.radius &&
+        Math.abs(player.vel.x) > 1
+      ) {
         this.vel.y -= 1 * (Math.abs(player.vel.x) + 1);
       }
     }
