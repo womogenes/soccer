@@ -61,7 +61,7 @@ document.querySelector(
 ).innerText = `Restitution: ${RESTITUTION}`;
 
 // Ball size
-let storedBallSize = JSON.parse(localStorage.getItem('ball-size'));
+let storedBallSize = JSON.parse(localStorage.getItem('ballSize'));
 if (storedBallSize) {
   BALL_SIZE = storedBallSize;
 } else {
