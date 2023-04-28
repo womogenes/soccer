@@ -7,13 +7,13 @@ let draw = () => {
   p.strokeWeight(2);
   p.stroke('#eee');
   p.noFill();
-  p.rect(1, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, 20, GOAL_HEIGHT + 10);
+  p.rect(1, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, GOAL_WIDTH, GOAL_HEIGHT + 10);
 
   p.fill('#eee');
   p.rect(
     WIDTH - 21,
     HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT,
-    20,
+    GOAL_WIDTH,
     GOAL_HEIGHT + 10
   );
 
@@ -85,11 +85,11 @@ let draw = () => {
 
   // Scoring
   if (!aboutToReset && ball.pos.y > HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT) {
-    if (ball.pos.x < 2 * BALL_SIZE) {
+    if (ball.pos.x < BALL_SIZE + GOAL_WIDTH) {
       scores[1]++;
       window.setTimeout(restart, 500);
       aboutToReset = true;
-    } else if (ball.pos.x > WIDTH - 2 * BALL_SIZE) {
+    } else if (ball.pos.x > WIDTH - (BALL_SIZE + GOAL_WIDTH)) {
       scores[0]++;
       window.setTimeout(restart, 500);
       aboutToReset = true;

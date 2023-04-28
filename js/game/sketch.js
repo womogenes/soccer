@@ -4,6 +4,7 @@ let WIDTH = Math.min(800, vw);
 let HEIGHT = Math.min(500, vh);
 const GROUND_HEIGHT = 50;
 const GOAL_HEIGHT = 200;
+const GOAL_WIDTH = 20;
 
 let aboutToReset = false; // Used for restarting
 let age = 0; // Frames since reset
