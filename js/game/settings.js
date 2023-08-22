@@ -7,7 +7,7 @@ let GRAVITY;
 let RESTITUTION;
 
 // Ball o.O
-let BALL_SIZE = 30;
+let BALL_SIZE = 15;
 let BALL_MASS = 1;
 
 // First player also bot?
@@ -65,7 +65,7 @@ let storedBallSize = JSON.parse(localStorage.getItem('ballSize'));
 if (storedBallSize) {
   BALL_SIZE = storedBallSize;
 } else {
-  BALL_SIZE = 0.9;
+  BALL_SIZE = 15;
 }
 document.getElementById('ball-size-slider').value = BALL_SIZE;
 document.querySelector(
