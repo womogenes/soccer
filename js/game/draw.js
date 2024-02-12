@@ -28,10 +28,11 @@ class Game {
     this.age++;
 
     p0.control([
+      p0.pos.x / WIDTH,
       p0.pos.x / WIDTH - ball.pos.x / WIDTH,
-      p1.pos.x / WIDTH - ball.pos.x / WIDTH,
+      // p1.pos.x / WIDTH - ball.pos.x / WIDTH,
       p0.pos.y / HEIGHT - ball.pos.y / HEIGHT,
-      p1.pos.y / HEIGHT - ball.pos.y / HEIGHT,
+      // p1.pos.y / HEIGHT - ball.pos.y / HEIGHT,
     ]);
     p1.moveAutomatic(ball, this.age);
 
@@ -148,7 +149,7 @@ let score = (network) => {
   return fitness / rounds;
 };
 
-let neat = new neataptic.Neat(4, 2, score, {
+let neat = new neataptic.Neat(3, 2, score, {
   // https://wagenaartje.github.io/neataptic/docs/methods/mutation/
   /* mutation: [
     neataptic.methods.mutation.ADD_NODE,
@@ -158,7 +159,7 @@ let neat = new neataptic.Neat(4, 2, score, {
     neataptic.methods.mutation.MOD_ACTIVATION,
   ], */
   mutation: neataptic.methods.mutation.ALL,
-  popsize: 100,
+  popsize: 500,
   mutationRate: 0.3,
   mutationAmount: 1,
   elitism: 5,

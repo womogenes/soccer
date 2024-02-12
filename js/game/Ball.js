@@ -2,7 +2,7 @@ export class Ball {
   constructor() {
     this.pos = new p5.Vector(WIDTH / 2, HEIGHT / 2);
     // this.vel = new p5.Vector(Math.random() * 2 - 1, -5);
-    this.vel = new p5.Vector(Math.random() * 0.2, -5);
+    this.vel = new p5.Vector(Math.random() * 0.2 - 0.1, -5);
     // this.vel = new p5.Vector(0, -5);
 
     this.radius = BALL_SIZE;
@@ -14,6 +14,7 @@ export class Ball {
     this.radius = BALL_SIZE;
 
     this.vel.x *= 0.99;
+    this.vel.y = Math.max(this.vel.y, -10);
 
     if (this.pos.y > HEIGHT - GROUND_HEIGHT - BALL_SIZE) {
       this.vel.y *= -0.4;
