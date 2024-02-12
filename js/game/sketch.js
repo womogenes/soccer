@@ -1,45 +1,37 @@
+import { Game } from './draw.js';
+
 let p;
 let [vw, vh] = getViewportSize();
-let WIDTH = Math.min(800, vw);
-let HEIGHT = Math.min(500, vh);
-const GROUND_HEIGHT = 50;
-const GOAL_HEIGHT = 200;
-const GOAL_WIDTH = 20;
+window.WIDTH = Math.min(800, vw);
+window.HEIGHT = Math.min(500, vh);
+window.GROUND_HEIGHT = 50;
+window.GOAL_HEIGHT = 200;
+window.GOAL_WIDTH = 20;
 
-const BALL_SIZE = 15;
-const BALL_MASS = 1;
-const firstBot = false;
-const secondBot = false;
-const GRAVITY = 0.5;
-const physicsType = 'sketch';
+window.BALL_SIZE = 15;
+window.BALL_MASS = 1;
+window.firstBot = false;
+window.secondBot = false;
+window.GRAVITY = 0.5;
+window.physicsType = 'sketch';
 
 let aboutToReset = false; // Used for restarting
 let age = 0; // Frames since reset
 
 // Player attributes
-const PLAYER_SIZE = 15; // Radius
-const PLAYER_SPEED = 0.3;
-const PLAYER_JUMP = 10;
-const PLAYER_MASS = 8;
+window.PLAYER_SIZE = 15; // Radius
+window.PLAYER_SPEED = 0.3;
+window.PLAYER_JUMP = 10;
+window.PLAYER_MASS = 8;
 
-let scores = [0, 0];
-
-let p0;
-let p1;
-let ball;
-let entities;
+window.scores = [0, 0];
 
 const sketch = (_p) => {
-  p = _p;
+  window.p = _p;
 
   _p.setup = () => {
-    p0 = new Player(0);
-    p1 = new Player(1);
-    ball = new Ball();
-    entities = [p0, p1, ball];
-
-    p.createCanvas(WIDTH, HEIGHT);
-    p.pixelDensity(4);
+    window.game = new Game();
+    _p.createCanvas(WIDTH, HEIGHT);
   };
 
   _p.draw = draw;

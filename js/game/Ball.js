@@ -1,13 +1,13 @@
 class Ball {
   constructor() {
-    this.pos = p.createVector(WIDTH / 2, HEIGHT / 2);
-    this.vel = p.createVector(random(-1, 1), -5);
+    this.pos = new p5.Vector(WIDTH / 2, HEIGHT / 2);
+    this.vel = new p5.Vector(random(-1, 1), -5);
 
     this.radius = BALL_SIZE;
     this.mass = BALL_MASS;
   }
 
-  update() {
+  update(p0, p1) {
     this.pos.add(this.vel);
     this.radius = BALL_SIZE;
 

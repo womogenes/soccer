@@ -1,63 +1,20 @@
-let draw = () => {
-  age++;
-
-  p.background('#222');
-
-  // Goals
-  p.strokeWeight(2);
-  p.stroke('#eee');
-  p.noFill();
-  p.rect(1, HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT, GOAL_WIDTH, GOAL_HEIGHT + 10);
-
-  p.fill('#eee');
-  p.rect(
-    WIDTH - 21,
-    HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT,
-    GOAL_WIDTH,
-    GOAL_HEIGHT + 10
-  );
-
-  // Ground
-  p.noStroke();
-  p.fill('#444');
-  p.rect(0, HEIGHT - GROUND_HEIGHT, WIDTH, GROUND_HEIGHT);
-
-  // Draw score
-  p.fill('#fff6');
-  p.textSize(128);
-  p.textStyle('bold');
-  p.textAlign('center', 'top');
-  p.textFont('Inter');
-  p.text(scores[0], 200, 100);
-  p.text(scores[1], WIDTH - 200, 100);
-
-  // Get user input
-  keys();
-  touch();
-  if (secondBot && !aboutToReset && age > p.frameRate() * 0.25) {
-    p1.moveAutomatic();
-  }
-  if (firstBot && !aboutToReset && age > p.frameRate() * 0.25) {
-    p0.moveAutomatic();
+export class Game {
+  constructor() {
+    this.p0 = new Player(0);
+    this.p1 = new Player(1);
+    this.ball = new Ball();
+    this.winner = null;
   }
 
-  p0.update();
-  p1.update();
-  ball.update();
+  update() {
+    let ball = this.ball;
 
-  // Collisions
-  if (physicsType === 'realistic') {
-    for (let a of entities) {
-      for (let b of entities) {
-        if (a === b || (a instanceof Player && b instanceof Player)) continue;
+    this.p0.update();
+    this.p1.update();
+    this.ball.update(this.p0, this.p1);
 
-        if (a.pos.dist(b.pos) < a.radius + b.radius) {
-          collide(a, b);
-        }
-      }
-    }
-  } else {
-    for (let player of [p0, p1]) {
+    // Update players
+    for (let player of [this.p0, this.p1]) {
       let d = dist(player.pos.x, player.pos.y, ball.pos.x, ball.pos.y);
 
       if (d < PLAYER_SIZE + BALL_SIZE) {
@@ -81,22 +38,58 @@ let draw = () => {
         }
       }
     }
-  }
 
-  // Scoring
-  if (!aboutToReset && ball.pos.y >= HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT) {
-    if (ball.pos.x < BALL_SIZE + GOAL_WIDTH) {
-      scores[1]++;
-      window.setTimeout(restart, 500);
-      aboutToReset = true;
-    } else if (ball.pos.x > WIDTH - (BALL_SIZE + GOAL_WIDTH)) {
-      scores[0]++;
-      window.setTimeout(restart, 500);
-      aboutToReset = true;
+    if (ball.pos.y >= HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT) {
+      if (ball.pos.x < BALL_SIZE + GOAL_WIDTH) {
+        this.winner = 1;
+      } else if (ball.pos.x > WIDTH - (BALL_SIZE + GOAL_WIDTH)) {
+        this.winner = 0;
+      }
     }
   }
 
-  p0.display();
-  p1.display();
-  ball.display();
+  display(p) {
+    p.background('#222');
+
+    // Goals
+    p.strokeWeight(2);
+    p.stroke('#eee');
+    p.noFill();
+    p.rect(
+      1,
+      HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT,
+      GOAL_WIDTH,
+      GOAL_HEIGHT + 10
+    );
+
+    p.fill('#eee');
+    p.rect(
+      WIDTH - 21,
+      HEIGHT - GROUND_HEIGHT - GOAL_HEIGHT,
+      GOAL_WIDTH,
+      GOAL_HEIGHT + 10
+    );
+
+    // Ground
+    p.noStroke();
+    p.fill('#444');
+    p.rect(0, HEIGHT - GROUND_HEIGHT, WIDTH, GROUND_HEIGHT);
+
+    // Draw score
+    p.fill('#fff6');
+    p.textSize(128);
+    p.textStyle('bold');
+    p.textAlign('center', 'top');
+    p.textFont('Inter');
+    p.text(scores[0], 200, 100);
+    p.text(scores[1], WIDTH - 200, 100);
+
+    // Draw players & ball
+    [this.p0, this.p1, this.ball].forEach((x) => x.display(p));
+  }
+}
+
+window.draw = () => {
+  window?.game?.update();
+  window?.game?.display(window.p);
 };
