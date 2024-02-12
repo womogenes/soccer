@@ -2,7 +2,7 @@ export class Ball {
   constructor() {
     this.pos = new p5.Vector(WIDTH / 2, HEIGHT / 2);
     // this.vel = new p5.Vector(Math.random() * 2 - 1, -5);
-    this.vel = new p5.Vector(Math.random() * 0.2 - 0.1, -5);
+    this.vel = new p5.Vector(Math.random() * 0.2, -5);
     // this.vel = new p5.Vector(0, -5);
 
     this.radius = BALL_SIZE;

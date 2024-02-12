@@ -14,6 +14,7 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"
     ></script>
     <script src="js/neataptic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
     <!-- Our own scripts -->
     <script defer src="./js/game/utils.js"></script>
@@ -25,9 +26,7 @@
 
   <body>
     <div id="root">
-      <div id="content-container">
-        <div id="sketch-container"></div>
-      </div>
+      <div id="sketch-container"></div>
       <button
         onclick="if (window.pauseEvolution) {window.pauseEvolution = false; neatIteration(); } else { window.pauseEvolution = true; }"
       >
@@ -36,6 +35,9 @@
       <button onclick="scores = [0, 0]">Reset score</button>
       <button onclick="game = new Game()">New game</button>
       <span id="game-age"></span>
+      <div style="width: 800px; height: 500px">
+        <canvas id="hist-canvas"></canvas>
+      </div>
     </div>
   </body>
 </html>

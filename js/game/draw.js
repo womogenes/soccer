@@ -8,10 +8,13 @@ const dist = (x1, y1, x2, y2) => {
 class Game {
   constructor() {
     this.p0 = new Player(0);
+    // this.p0.speed *= 0.9;
     this.p1 = new Player(1);
     this.ball = new Ball();
     this.winner = null;
     this.age = 0;
+
+    this.timePastBall = 0;
   }
 
   /*
@@ -25,22 +28,18 @@ class Game {
     this.age++;
 
     p0.control([
-      p0.pos.x / WIDTH,
-      p1.pos.x / WIDTH,
-      ball.pos.x / WIDTH,
-      p0.pos.y / HEIGHT,
-      p1.pos.y / HEIGHT,
-      ball.pos.y / HEIGHT,
-      p0.vel.x / 6,
-      p0.vel.y / 10,
-      p1.vel.y / 6,
-      p1.vel.y / 10,
+      p0.pos.x / WIDTH - ball.pos.x / WIDTH,
+      p1.pos.x / WIDTH - ball.pos.x / WIDTH,
+      p0.pos.y / HEIGHT - ball.pos.y / HEIGHT,
+      p1.pos.y / HEIGHT - ball.pos.y / HEIGHT,
     ]);
     p1.moveAutomatic(ball, this.age);
 
     p0.update();
     p1.update();
     ball.update(p0, p1);
+
+    if (p0.pos.x > ball.pos.x) this.timePastBall += 1;
 
     // Update players
     for (let player of [p0, p1]) {
@@ -119,21 +118,37 @@ class Game {
 }
 
 let score = (network) => {
-  let rounds = 20;
+  let rounds = 10;
   let fitness = 0;
+  network.wins = 0;
+  network.draws = 0;
+  network.losses = 0;
   for (let i = 0; i < rounds; i++) {
     let game = new Game();
     game.p0.network = network;
-    while (game.age < 1000 && game.winner === null) {
+    while (game.age < 500 && game.winner === null) {
       game.update();
     }
-    if (game.winner === 0) fitness += 1;
-    if (game.winner === null) fitness += 0;
+    if (game.winner === 0) {
+      fitness += 1;
+      network.wins += 1;
+    }
+    if (game.winner === null) {
+      fitness += 0.5;
+      network.draws += 1;
+    }
+    if (game.winner === 1) {
+      network.losses += 1;
+    }
+    fitness -= (game.timePastBall / game.age) * 1;
   }
+  network.wins /= rounds;
+  network.draws /= rounds;
+  network.losses /= rounds;
   return fitness / rounds;
 };
 
-let neat = new neataptic.Neat(10, 2, score, {
+let neat = new neataptic.Neat(4, 2, score, {
   // https://wagenaartje.github.io/neataptic/docs/methods/mutation/
   /* mutation: [
     neataptic.methods.mutation.ADD_NODE,
@@ -143,14 +158,14 @@ let neat = new neataptic.Neat(10, 2, score, {
     neataptic.methods.mutation.MOD_ACTIVATION,
   ], */
   mutation: neataptic.methods.mutation.ALL,
-  popsize: 50,
-  mutationRate: 0.5,
+  popsize: 100,
+  mutationRate: 0.3,
   mutationAmount: 1,
   elitism: 5,
 });
 window.neat = neat;
 
-let pauseEvolution;
+let pauseEvolution = true;
 window.pauseEvolution = pauseEvolution;
 
 let neatIteration = async () => {
@@ -163,27 +178,26 @@ let neatIteration = async () => {
       .getAverage()
       .toFixed(4)}, best score: ${neat.getFittest().score.toFixed(4)}`
   );
-  /* neat.sort();
-  var newPopulation = [];
+  let rates = neat.population.reduce(
+    (a, b) => {
+      return {
+        winRate: a.winRate + b.wins,
+        drawRate: a.drawRate + b.draws,
+        lossRate: a.lossRate + b.losses,
+      };
+    },
+    { winRate: 0, drawRate: 0, lossRate: 0 }
+  );
+  rates.winRate /= neat.popsize;
+  rates.drawRate /= neat.popsize;
+  rates.lossRate /= neat.popsize;
 
-  // Elitism
-  let elite = [];
-  for (var i = 0; i < neat.elitism; i++) {
-    newPopulation.push(neat.population[i]);
-    elite.push(neat.population[i]);
-  }
-
-  // Breed the next individuals
-  for (var i = 0; i < neat.popsize - neat.elitism; i++) {
-    newPopulation.push(neat.getOffspring());
-  }
-
-  // Replace the old population with the new population
-  neat.population = newPopulation;
-  neat.mutate();
-  for (let i = 0; i < neat.elitism; i++) {
-    neat.population[i] = elite[i];
-  } */
+  chart.data.labels.push(neat.generation);
+  chart.data.datasets[0].data.push(neat.getAverage());
+  chart.data.datasets[1].data.push(rates.winRate);
+  chart.data.datasets[2].data.push(rates.drawRate);
+  chart.data.datasets[3].data.push(rates.lossRate);
+  chart.update('none');
 
   neat.generation++;
 
@@ -193,7 +207,6 @@ let neatIteration = async () => {
   requestAnimationFrame(neatIteration);
 };
 window.neatIteration = neatIteration;
-
 neatIteration();
 
 window.draw = () => {
@@ -209,6 +222,37 @@ window.draw = () => {
     game.p0.network = neat.getFittest();
   }
 };
+
+const ctx = document.querySelector('#hist-canvas');
+const chart = new Chart(ctx, {
+  type: 'line',
+  options: {
+    scales: {
+      x: { title: { display: true, text: 'Generation' } },
+    },
+  },
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: 'Avg. score',
+        data: [],
+      },
+      {
+        label: 'Win rate',
+        data: [],
+      },
+      {
+        label: 'Draw rate',
+        data: [],
+      },
+      {
+        label: 'Loss rate',
+        data: [],
+      },
+    ],
+  },
+});
 
 export default Game;
 window.Game = Game;
