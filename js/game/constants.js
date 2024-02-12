@@ -3,6 +3,7 @@ let HEIGHT = 500; // Math.min(500, vh);
 let GROUND_HEIGHT = 50;
 let GOAL_HEIGHT = 5000;
 let GOAL_WIDTH = 20;
+let RESTITUTION = 0.9;
 
 let BALL_SIZE = 15;
 let BALL_MASS = 1;

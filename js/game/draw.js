@@ -11,6 +11,7 @@ class Game {
     // this.p0.speed *= 0.9;
     this.p1 = new Player(1);
     this.ball = new Ball();
+    this.entities = [this.p0, this.p1, this.ball];
     this.winner = null;
     this.age = 0;
 
@@ -40,30 +41,44 @@ class Game {
     p1.update();
     ball.update(p0, p1);
 
-    if (p0.pos.x > ball.pos.x) this.timePastBall += 1;
+    if (p0.pos.x > ball.pos.x) {
+      this.timePastBall += Math.abs(ball.pos.x - p0.pos.x) / WIDTH;
+      this.timePastBall += 1;
+    }
 
     // Update players
-    for (let player of [p0, p1]) {
-      let d = dist(player.pos.x, player.pos.y, ball.pos.x, ball.pos.y);
+    if (false) {
+      for (let a of this.entities) {
+        for (let b of this.entities) {
+          if (a === b || (a instanceof Player && b instanceof Player)) continue;
+          if (a.pos.dist(b.pos) < a.radius + b.radius) {
+            collide(a, b);
+          }
+        }
+      }
+    } else {
+      for (let player of [p0, p1]) {
+        let d = dist(player.pos.x, player.pos.y, ball.pos.x, ball.pos.y);
 
-      if (d < PLAYER_SIZE + BALL_SIZE) {
-        // Player collides with ball
-        player.vel.x +=
-          (((player.pos.x - ball.pos.x) * BALL_MASS) / PLAYER_MASS) * 0.1;
-        player.vel.y +=
-          (((player.pos.y - ball.pos.y) * BALL_MASS) / PLAYER_MASS) * 0.1;
+        if (d < (PLAYER_SIZE + BALL_SIZE) * 1.05) {
+          // Player collides with ball
+          player.vel.x +=
+            (((player.pos.x - ball.pos.x) * BALL_MASS) / PLAYER_MASS) * 0.1;
+          player.vel.y +=
+            (((player.pos.y - ball.pos.y) * BALL_MASS) / PLAYER_MASS) * 0.1;
 
-        ball.vel.x +=
-          (((ball.pos.x - player.pos.x) * PLAYER_MASS) / BALL_MASS) *
-          0.01 *
-          (Math.abs(player.vel.x) + 1);
-        ball.vel.y +=
-          (((ball.pos.y - player.pos.y) * PLAYER_MASS) / BALL_MASS) *
-          0.01 *
-          (Math.abs(player.vel.x) + 1);
+          ball.vel.x +=
+            (((ball.pos.x - player.pos.x) * PLAYER_MASS) / BALL_MASS) *
+            0.01 *
+            (Math.abs(player.vel.x) + 1);
+          ball.vel.y +=
+            (((ball.pos.y - player.pos.y) * PLAYER_MASS) / BALL_MASS) *
+            0.01 *
+            (Math.abs(player.vel.x) + 1);
 
-        if (player.vel.y >= ball.vel.y) {
-          ball.vel.y -= 1.0 * Math.abs(player.vel.x);
+          if (player.vel.y >= ball.vel.y) {
+            ball.vel.y -= 1.0 * Math.abs(player.vel.x);
+          }
         }
       }
     }
@@ -127,7 +142,7 @@ let score = (network) => {
   for (let i = 0; i < rounds; i++) {
     let game = new Game();
     game.p0.network = network;
-    while (game.age < 500 && game.winner === null) {
+    while (game.age < 200 && game.winner === null) {
       game.update();
     }
     if (game.winner === 0) {
@@ -141,7 +156,7 @@ let score = (network) => {
     if (game.winner === 1) {
       network.losses += 1;
     }
-    fitness -= (game.timePastBall / game.age) * 1;
+    fitness -= game.timePastBall * 0.1;
   }
   network.wins /= rounds;
   network.draws /= rounds;
@@ -159,10 +174,10 @@ let neat = new neataptic.Neat(3, 2, score, {
     neataptic.methods.mutation.MOD_ACTIVATION,
   ], */
   mutation: neataptic.methods.mutation.ALL,
-  popsize: 500,
-  mutationRate: 0.3,
+  popsize: 100,
+  mutationRate: 0.5,
   mutationAmount: 1,
-  elitism: 5,
+  elitism: 10,
 });
 window.neat = neat;
 
