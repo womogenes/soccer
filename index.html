@@ -17,11 +17,10 @@
 
     <!-- Our own scripts -->
     <script defer src="./js/game/utils.js"></script>
+    <script src="./js/game/constants.js"></script>
+    <script src="./js/game/sketch.js" type="module"></script>
     <script defer src="./js/game/keys.js"></script>
-    <script defer src="./js/game/Player.js"></script>
-    <script defer src="./js/game/Ball.js"></script>
     <script defer src="./js/game/main.js"></script>
-    <script defer src="./js/game/sketch.js" type="module"></script>
   </head>
 
   <body>
@@ -29,6 +28,14 @@
       <div id="content-container">
         <div id="sketch-container"></div>
       </div>
+      <button
+        onclick="if (window.pauseEvolution) {window.pauseEvolution = false; neatIteration(); } else { window.pauseEvolution = true; }"
+      >
+        Pause evolution
+      </button>
+      <button onclick="scores = [0, 0]">Reset score</button>
+      <button onclick="game = new Game()">New game</button>
+      <span id="game-age"></span>
     </div>
   </body>
 </html>

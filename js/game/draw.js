@@ -1,4 +1,11 @@
-export class Game {
+import { Player } from './Player.js';
+import { Ball } from './Ball.js';
+
+const dist = (x1, y1, x2, y2) => {
+  return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+};
+
+class Game {
   constructor() {
     this.p0 = new Player(0);
     this.p1 = new Player(1);
@@ -17,7 +24,18 @@ export class Game {
 
     this.age++;
 
-    p0.control([p0.pos.x / WIDTH, ball.pos.x / WIDTH]);
+    p0.control([
+      p0.pos.x / WIDTH,
+      p1.pos.x / WIDTH,
+      ball.pos.x / WIDTH,
+      p0.pos.y / HEIGHT,
+      p1.pos.y / HEIGHT,
+      ball.pos.y / HEIGHT,
+      p0.vel.x / 6,
+      p0.vel.y / 10,
+      p1.vel.y / 6,
+      p1.vel.y / 10,
+    ]);
     p1.moveAutomatic(ball, this.age);
 
     p0.update();
@@ -100,13 +118,97 @@ export class Game {
   }
 }
 
+let score = (network) => {
+  let rounds = 20;
+  let fitness = 0;
+  for (let i = 0; i < rounds; i++) {
+    let game = new Game();
+    game.p0.network = network;
+    while (game.age < 1000 && game.winner === null) {
+      game.update();
+    }
+    if (game.winner === 0) fitness += 1;
+    if (game.winner === null) fitness += 0;
+  }
+  return fitness / rounds;
+};
+
+let neat = new neataptic.Neat(10, 2, score, {
+  // https://wagenaartje.github.io/neataptic/docs/methods/mutation/
+  /* mutation: [
+    neataptic.methods.mutation.ADD_NODE,
+    neataptic.methods.mutation.ADD_CONN,
+    neataptic.methods.mutation.MOD_WEIGHT,
+    neataptic.methods.mutation.MOD_BIAS,
+    neataptic.methods.mutation.MOD_ACTIVATION,
+  ], */
+  mutation: neataptic.methods.mutation.ALL,
+  popsize: 50,
+  mutationRate: 0.5,
+  mutationAmount: 1,
+  elitism: 5,
+});
+window.neat = neat;
+
+let pauseEvolution;
+window.pauseEvolution = pauseEvolution;
+
+let neatIteration = async () => {
+  if (window.pauseEvolution) return;
+
+  await neat.evolve();
+  await neat.evaluate();
+  console.log(
+    `Generation: ${neat.generation}, avg. score: ${neat
+      .getAverage()
+      .toFixed(4)}, best score: ${neat.getFittest().score.toFixed(4)}`
+  );
+  /* neat.sort();
+  var newPopulation = [];
+
+  // Elitism
+  let elite = [];
+  for (var i = 0; i < neat.elitism; i++) {
+    newPopulation.push(neat.population[i]);
+    elite.push(neat.population[i]);
+  }
+
+  // Breed the next individuals
+  for (var i = 0; i < neat.popsize - neat.elitism; i++) {
+    newPopulation.push(neat.getOffspring());
+  }
+
+  // Replace the old population with the new population
+  neat.population = newPopulation;
+  neat.mutate();
+  for (let i = 0; i < neat.elitism; i++) {
+    neat.population[i] = elite[i];
+  } */
+
+  neat.generation++;
+
+  let fittest = neat.getFittest();
+  if (window?.game) window.game.p0.network = fittest;
+
+  requestAnimationFrame(neatIteration);
+};
+window.neatIteration = neatIteration;
+
+neatIteration();
+
 window.draw = () => {
   if (!window?.game) return;
 
   game.update();
+  document.querySelector('#game-age').innerText = game.age;
   game.display(window.p);
   if (game.winner !== null) {
     scores[game.winner]++;
     game = new Game();
+
+    game.p0.network = neat.getFittest();
   }
 };
+
+export default Game;
+window.Game = Game;

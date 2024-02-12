@@ -1,4 +1,4 @@
-class Player {
+export class Player {
   constructor(team, network) {
     this.team = team;
 
@@ -12,27 +12,14 @@ class Player {
     this.mass = PLAYER_MASS;
     this.speed = PLAYER_SPEED;
 
-    this.network = network;
-
-    if (!network) {
-      let { Node } = neataptic;
-      let A = new Node();
-      A.bias = 0;
-      let B = new Node();
-      B.bias = 0;
-      let C = new Node();
-      C.bias = 0.1;
-      C.squash = neataptic.methods.activation.IDENTITY;
-      A.connect(C, 1);
-      B.connect(C, -1);
-      this.network = neataptic.architect.Construct([A, B, C]);
-    }
+    this.network = { noTraceActivate: () => [0, 0] };
   }
 
   control(inputs) {
     // Have network control actions
     let outputs = this.network.noTraceActivate(inputs);
     this.move(outputs[0]);
+    if (outputs[1] > 0) this.jump();
   }
 
   update() {
@@ -72,7 +59,7 @@ class Player {
   }
 
   moveAutomatic(ball, age) {
-    if (age < 60) return;
+    // if (age < 60) return;
 
     let closeness = (ball.pos.x - this.pos.x) * ((this.team - 0.5) * 2);
     if (this.pos.y - ball.pos.y > 40 || (0 < closeness && closeness < 100)) {

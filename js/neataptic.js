@@ -2858,7 +2858,7 @@ function Neat (input, output, fitness, options) {
   this.popsize = options.popsize || 50;
   this.elitism = options.elitism || 0;
   this.provenance = options.provenance || 0;
-  this.mutationRate = options.mutationRate || 0.3;
+  this.mutationRate = options.mutationRate || 0;
   this.mutationAmount = options.mutationAmount || 1;
 
   this.fitnessPopulation = options.fitnessPopulation || false;

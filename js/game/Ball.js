@@ -1,7 +1,9 @@
-class Ball {
+export class Ball {
   constructor() {
     this.pos = new p5.Vector(WIDTH / 2, HEIGHT / 2);
-    this.vel = new p5.Vector(random(-1, 1), -5);
+    // this.vel = new p5.Vector(Math.random() * 2 - 1, -5);
+    this.vel = new p5.Vector(Math.random() * 0.2 - 0.1, -5);
+    // this.vel = new p5.Vector(0, -5);
 
     this.radius = BALL_SIZE;
     this.mass = BALL_MASS;
@@ -34,7 +36,7 @@ class Ball {
         this.pos.dist(player.pos) < this.radius + player.radius &&
         Math.abs(player.vel.x) > 1
       ) {
-        this.vel.y -= 1 * (Math.abs(player.vel.x) + 1);
+        this.vel.y -= 0.8 * (Math.abs(player.vel.x) + 1);
       }
     }
   }
