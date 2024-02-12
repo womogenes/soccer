@@ -1,5 +1,5 @@
 class Player {
-  constructor(team) {
+  constructor(team, network) {
     this.team = team;
 
     this.pos = new p5.Vector(
@@ -11,6 +11,28 @@ class Player {
     this.radius = PLAYER_SIZE;
     this.mass = PLAYER_MASS;
     this.speed = PLAYER_SPEED;
+
+    this.network = network;
+
+    if (!network) {
+      let { Node } = neataptic;
+      let A = new Node();
+      A.bias = 0;
+      let B = new Node();
+      B.bias = 0;
+      let C = new Node();
+      C.bias = 0.1;
+      C.squash = neataptic.methods.activation.IDENTITY;
+      A.connect(C, 1);
+      B.connect(C, -1);
+      this.network = neataptic.architect.Construct([A, B, C]);
+    }
+  }
+
+  control(inputs) {
+    // Have network control actions
+    let outputs = this.network.noTraceActivate(inputs);
+    this.move(outputs[0]);
   }
 
   update() {
@@ -36,7 +58,11 @@ class Player {
   }
 
   move(acc) {
-    this.vel.x += acc;
+    if (Math.abs(acc) < 0) return;
+    this.vel.x += Math.min(
+      Math.max((this.team * 0.5 + 0.5) * acc, -this.speed),
+      this.speed
+    );
   }
 
   jump() {
@@ -45,12 +71,11 @@ class Player {
     }
   }
 
-  moveAutomatic() {
+  moveAutomatic(ball, age) {
+    if (age < 60) return;
+
     let closeness = (ball.pos.x - this.pos.x) * ((this.team - 0.5) * 2);
-    if (
-      (age > 60 && this.pos.y - ball.pos.y > 40) ||
-      (0 < closeness && closeness < 100)
-    ) {
+    if (this.pos.y - ball.pos.y > 40 || (0 < closeness && closeness < 100)) {
       this.jump();
     }
 

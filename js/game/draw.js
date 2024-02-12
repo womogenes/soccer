@@ -4,17 +4,28 @@ export class Game {
     this.p1 = new Player(1);
     this.ball = new Ball();
     this.winner = null;
+    this.age = 0;
   }
 
-  update() {
-    let ball = this.ball;
+  /*
+  Notes:
+    Fast games are 150+ ticks, longer games can go up to 500 ticks
+  */
 
-    this.p0.update();
-    this.p1.update();
-    this.ball.update(this.p0, this.p1);
+  update() {
+    let { p0, p1, ball } = this;
+
+    this.age++;
+
+    p0.control([p0.pos.x / WIDTH, ball.pos.x / WIDTH]);
+    p1.moveAutomatic(ball, this.age);
+
+    p0.update();
+    p1.update();
+    ball.update(p0, p1);
 
     // Update players
-    for (let player of [this.p0, this.p1]) {
+    for (let player of [p0, p1]) {
       let d = dist(player.pos.x, player.pos.y, ball.pos.x, ball.pos.y);
 
       if (d < PLAYER_SIZE + BALL_SIZE) {
@@ -90,6 +101,12 @@ export class Game {
 }
 
 window.draw = () => {
-  window?.game?.update();
-  window?.game?.display(window.p);
+  if (!window?.game) return;
+
+  game.update();
+  game.display(window.p);
+  if (game.winner !== null) {
+    scores[game.winner]++;
+    game = new Game();
+  }
 };
