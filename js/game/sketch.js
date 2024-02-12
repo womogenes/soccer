@@ -6,6 +6,13 @@ const GROUND_HEIGHT = 50;
 const GOAL_HEIGHT = 200;
 const GOAL_WIDTH = 20;
 
+const BALL_SIZE = 15;
+const BALL_MASS = 1;
+const firstBot = false;
+const secondBot = false;
+const GRAVITY = 0.5;
+const physicsType = 'sketch';
+
 let aboutToReset = false; // Used for restarting
 let age = 0; // Frames since reset
 
