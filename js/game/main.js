@@ -3,11 +3,14 @@ let restart = () => {
   age = 0;
 
   for (let player of [p0, p1]) {
-    player.pos = p.createVector(50 + (WIDTH - 50 * 2) * player.team, HEIGHT - GROUND_HEIGHT - PLAYER_SIZE);
+    player.pos = p.createVector(
+      50 + (WIDTH - 50 * 2) * player.team,
+      HEIGHT - GROUND_HEIGHT - PLAYER_SIZE
+    );
     player.vel = p.createVector(0, 0);
   }
 
-  ball.pos = p.createVector(WIDTH / 2, HEIGHT/ 2);
+  ball.pos = p.createVector(WIDTH / 2, HEIGHT / 2);
   ball.vel = p.createVector(random(-1, 1), -5);
 };
 
@@ -18,12 +21,11 @@ let collide = (a, b) => {
   let delta = p5.Vector.sub(a.pos, b.pos);
   let d = delta.mag();
   // minimum translation distance to push balls apart after intersecting
-  let mtd = p5.Vector.mult(delta, ((a.radius + b.radius) - d) / d);
-
+  let mtd = p5.Vector.mult(delta, (a.radius + b.radius - d) / d);
 
   // resolve intersection --
   // inverse mass quantities
-  let im1 = 1 / a.mass; 
+  let im1 = 1 / a.mass;
   let im2 = 1 / b.mass;
 
   // push-pull them apart based off their mass
@@ -47,4 +49,4 @@ let collide = (a, b) => {
   // change in momentum
   a.vel.add(p5.Vector.mult(impulse, im1));
   b.vel.sub(p5.Vector.mult(impulse, im2));
-}
+};

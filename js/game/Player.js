@@ -1,8 +1,11 @@
 class Player {
   constructor(team) {
     this.team = team;
-    
-    this.pos = p.createVector(50 + (WIDTH - 50 * 2) * team, HEIGHT - GROUND_HEIGHT - PLAYER_SIZE);
+
+    this.pos = p.createVector(
+      50 + (WIDTH - 50 * 2) * team,
+      HEIGHT - GROUND_HEIGHT - PLAYER_SIZE
+    );
     this.vel = p.createVector(0, 0);
 
     this.radius = PLAYER_SIZE;
@@ -44,11 +47,15 @@ class Player {
 
   moveAutomatic() {
     let closeness = (ball.pos.x - this.pos.x) * ((this.team - 0.5) * 2);
-    if (age > 60 && this.pos.y - ball.pos.y > 40 || (0 < closeness && closeness < 100)) {
+    if (
+      (age > 60 && this.pos.y - ball.pos.y > 40) ||
+      (0 < closeness && closeness < 100)
+    ) {
       this.jump();
     }
 
-    let boundary = ball.pos.x + ((this.team - 0.5) * 2) * (PLAYER_SIZE + BALL_SIZE) * 0.9;
+    let boundary =
+      ball.pos.x + (this.team - 0.5) * 2 * (PLAYER_SIZE + BALL_SIZE) * 0.9;
     if (this.pos.x > boundary) {
       this.move(-this.speed);
     } else {

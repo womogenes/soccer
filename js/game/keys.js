@@ -1,17 +1,21 @@
 const keys = () => {
-  if (p.keyIsDown(65)) { // A
+  if (p.keyIsDown(65)) {
+    // A
     p0.move(-p0.speed);
   }
 
-  if (p.keyIsDown(68)) { // D
+  if (p.keyIsDown(68)) {
+    // D
     p0.move(p0.speed);
   }
 
-  if (p.keyIsDown(87)) { // W or up arrow
+  if (p.keyIsDown(87)) {
+    // W or up arrow
     p0.jump();
   }
 
-  if (p.keyIsDown(37)) { // Left arrow
+  if (p.keyIsDown(37)) {
+    // Left arrow
     if (!secondBot) {
       p1.move(-p1.speed);
     } else {
@@ -19,7 +23,8 @@ const keys = () => {
     }
   }
 
-  if (p.keyIsDown(39)) { // Right arrow
+  if (p.keyIsDown(39)) {
+    // Right arrow
     if (!secondBot) {
       p1.move(p1.speed);
     } else {
@@ -27,7 +32,8 @@ const keys = () => {
     }
   }
 
-  if (p.keyIsDown(38)) { // Up arrow
+  if (p.keyIsDown(38)) {
+    // Up arrow
     if (!secondBot) {
       p1.jump();
     } else {
@@ -38,7 +44,6 @@ const keys = () => {
   if (p.keyIsDown(32) && !secondBot) {
     p0.jump();
   }
-
 };
 
 const touch = () => {
@@ -48,7 +53,6 @@ const touch = () => {
 
     if (y > HEIGHT - GROUND_HEIGHT) {
       p0.jump();
-      
     } else {
       if (x > WIDTH / 2) {
         p0.move(p0.speed);
